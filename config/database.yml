@@ -1,0 +1,17 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: gratifiled_development
+  password:
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: gratifiled_test
+  password:
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: gratifiled_production
+  password:
