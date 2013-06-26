@@ -22,4 +22,13 @@ describe "a user sends an email to recipient" do
     expect(page).to have_field("document[message]")
     expect(page).to have_button("Send document")
   end
+
+  it "creates a new document instance" do
+    visit new_document_path
+    fill_in("document[name]", :with => "erin")
+    fill_in("document[email]", :with => "erin@example.com")
+    fill_in("document[recipient_email]", :with => "brock@example.com")
+    fill_in("document[message]", :with => "the dog ate my homework")
+    expect{ click_button("Send document") }.to change(Document, :count).by(1)
+  end
 end
