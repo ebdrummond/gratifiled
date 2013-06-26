@@ -1,15 +1,22 @@
 require 'spec_helper'
 
 describe "a user sends an email to recipient" do
-  before do
-    visit root_path
+  def create_document
+    visit new_document_path
+    fill_in("document[name]", :with => "erin")
+    fill_in("document[email]", :with => "erin@example.com")
+    fill_in("document[recipient_email]", :with => "brock@example.com")
+    fill_in("document[message]", :with => "the dog ate my homework")
+    expect{ click_button("Send document") }.to change(Document, :count).by(1)
   end
 
   it "has a button to add a new file" do
+    visit root_path
     expect(page).to have_button("Yes!")
   end
 
   it "takes you to the new file path upon clicking 'Yes!' button" do
+    visit root_path
     click_button("Yes!")
     expect(current_path).to eq(new_document_path)
   end
@@ -24,11 +31,11 @@ describe "a user sends an email to recipient" do
   end
 
   it "creates a new document instance" do
-    visit new_document_path
-    fill_in("document[name]", :with => "erin")
-    fill_in("document[email]", :with => "erin@example.com")
-    fill_in("document[recipient_email]", :with => "brock@example.com")
-    fill_in("document[message]", :with => "the dog ate my homework")
-    expect{ click_button("Send document") }.to change(Document, :count).by(1)
+    create_document
+  end
+
+  it "redirects to a confirmation page on document creation" do
+    create_document
+    expect(current_path).to eq(document_confirmation_path(Document.last.id))
   end
 end
