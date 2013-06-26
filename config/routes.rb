@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Gratifiled::Application.routes.draw do
   root :to => "home#show"
 
@@ -5,4 +7,6 @@ Gratifiled::Application.routes.draw do
   resources :documents do
     get "confirmation", to: "confirmations#show", as: "confirmation"
   end
+
+  mount Sidekiq::Web, at: '/sidekiq'
 end

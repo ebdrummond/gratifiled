@@ -1,0 +1,15 @@
+<p>Hiya <%= @document.recipient_email %>!</p>
+
+<p><%= @document.name %> has shared a file with you through Gratifiled.</p>
+
+<p>
+<% if @document.message != "" %>
+  Personal message from <%= @document.name %>:
+  <%= @document.message %>
+<% end %>
+</p>
+
+<p>To download your file, click here.  Please note that this file will only be available on Gratifiled until <%= @document.formatted_expiration %>.</p>
+
+<p>Happy sharing!<br>
+The Gratifiled Team</p>

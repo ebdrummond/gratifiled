@@ -8,6 +8,7 @@ class DocumentsController < ApplicationController
     @document = Document.create(params[:document])
 
     if @document.save
+      SendEmailsWorker.perform_async(@document.id)
       redirect_to document_confirmation_path(@document)
     else
       render :new, message: "Document failed to save."

@@ -15,10 +15,10 @@ Your recipient:<br>
 </p>
 
 <p>
-<% if @document.message %>
+<% if @document.message != "" %>
   Personal message:<br>
   <%= @document.message %>
 <% end %>
 </p>
 
-<p>Your recipient has been emailed a link to download your file and has until <%= formatted(@document.expiration) %> to view and download the file.</p>
+<p>Your recipient has been emailed a link to download your file and has until <%= @document.formatted_expiration %> to view and download the file.</p>

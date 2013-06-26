@@ -4,6 +4,11 @@ class Document < ActiveRecord::Base
   validates_presence_of :name, :email, :recipient_email
 
   def expiration
-    self.created_at + 3.days
+    created_at + 3.days
+  end
+
+  def formatted_expiration
+    local_time = expiration.to_time.localtime
+    local_time.strftime("%B %-d at %-l:%M %P")
   end
 end
