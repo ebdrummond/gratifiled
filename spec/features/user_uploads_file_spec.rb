@@ -38,4 +38,16 @@ describe "a user sends an email to recipient" do
     create_document
     expect(current_path).to eq(document_confirmation_path(Document.last.id))
   end
+
+  it "includes confirmation details of the created document" do
+    create_document
+    document = Document.last
+    expiration = (document.created_at + 3.days).to_time.localtime
+    formatted_expiration = expiration.strftime("%B %-d at %-l:%M %P")
+    expect(page).to have_content("erin")
+    expect(page).to have_content("erin@example.com")
+    expect(page).to have_content("brock@example.com")
+    expect(page).to have_content("the dog ate my homework")
+    expect(page).to have_content(formatted_expiration)
+  end
 end

@@ -22,4 +22,11 @@ describe Document do
     document.message = ""
     expect(document).to be_valid
   end
+
+  describe "#expiration" do
+    it "has an expiration of 72 hours after the document was created" do
+      document.created_at = DateTime.new(2013, 6, 25, 10)
+      expect(document.expiration).to eq(DateTime.new(2013, 6, 28, 10))
+    end
+  end
 end

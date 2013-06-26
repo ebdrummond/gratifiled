@@ -1,0 +1,24 @@
+<p>Your file has been sent!<br>
+Don't you feel Gratifiled?</p>
+
+<p>Confirmation details</p>
+
+<p>
+Your info:<br>
+<%= @document.name %><br>
+<%= @document.email %><br>
+</p>
+
+<p>
+Your recipient:<br>
+<%= @document.recipient_email %><br>
+</p>
+
+<p>
+<% if @document.message %>
+  Personal message:<br>
+  <%= @document.message %>
+<% end %>
+</p>
+
+<p>Your recipient has been emailed a link to download your file and has until <%= formatted(@document.expiration) %> to view and download the file.</p>
