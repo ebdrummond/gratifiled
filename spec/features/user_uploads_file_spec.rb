@@ -7,6 +7,7 @@ describe "a user sends an email to recipient" do
     fill_in("document[email]", :with => "erin@example.com")
     fill_in("document[recipient_email]", :with => "brock@example.com")
     fill_in("document[message]", :with => "the dog ate my homework")
+    attach_file("document[document]", "spec/fixtures/lola_may.png")
   end
 
   it "has a button to add a new file" do

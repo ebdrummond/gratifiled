@@ -1,4 +1,4 @@
-<%= form_for @document do |f| %>
+<%= form_for(@document, html: {multipart: true}) do |f| %>
   <% @document.errors.full_messages.each do |msg| %>
     <li><%= msg %></li>
   <% end %>
@@ -21,6 +21,11 @@
   <p>
     <%= f.label :personal_message %><br>
     <%= f.text_area :message, :cols => "40", :rows => "5" %>
+  </p>
+
+  <p>
+    <%= f.label :document, "Attach a file" %><br />
+    <%= f.file_field :document %>
   </p>
 
   <p>

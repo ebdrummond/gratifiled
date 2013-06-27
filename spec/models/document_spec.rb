@@ -4,7 +4,8 @@ describe Document do
   let(:document) {Document.new(name: "erin",
                                email: "erin@example.com",
                                recipient_email: "brock@example.com",
-                               message: "the dog ate my homework")}
+                               message: "the dog ate my homework",
+                               document: File.new('spec/fixtures/lola_may.png'))}
 
   it "requires a name" do
     expect{ document.name = "" }.to change { document.valid? }.to be_false

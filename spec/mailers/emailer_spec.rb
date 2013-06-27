@@ -4,7 +4,8 @@ describe Emailer do
   describe "#send_document_email" do
     let!(:document) {Document.create(name: "erin",
                                     email: "erin@sample.com",
-                                    recipient_email: "brock@sample.com")}
+                                    recipient_email: "brock@sample.com",
+                                    document: File.new('spec/fixtures/lola_may.png'))}
     let!(:worker) {SendEmailsWorker.new}
     let!(:mail) {Emailer.send_document_email(document)}
 
