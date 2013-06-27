@@ -1,0 +1,8 @@
+File information:
+<p>Sent by: <%= @document.name %> (<%= @document.email %>)</p>
+<% if @document.message %>
+  <p>Message:<br>
+  <%= @document.message %></p>
+<% end %>
+
+<p>Remember, you have until <%= @document.formatted_expiration %> to download this file.  After that time, the file will be purged from our system.</p>

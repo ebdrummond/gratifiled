@@ -18,6 +18,11 @@ describe Document do
     expect{ document.recipient_email = "" }.to change { document.valid? }.to be_false
   end
 
+  it "requires a uuid hash" do
+    document.save
+    expect{ document.uuid = nil }.to change { document.valid? }.to be_false
+  end
+
   it "does not require a message" do
     document.message = ""
     expect(document).to be_valid

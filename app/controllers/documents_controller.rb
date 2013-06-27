@@ -14,4 +14,8 @@ class DocumentsController < ApplicationController
       render :new, message: "Document failed to save."
     end
   end
+
+  def show
+    @document = Document.find_by_uuid(params[:uuid])
+  end
 end
