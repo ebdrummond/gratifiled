@@ -29,6 +29,10 @@ describe Document do
     expect(document).to be_valid
   end
 
+  it "has a default downloaded state of false" do
+    expect(document.downloaded).to eq(false)
+  end
+
   describe "#expiration" do
     it "has an expiration of 72 hours after the document was created" do
       document.created_at = DateTime.new(2013, 6, 25, 10)
@@ -42,6 +46,13 @@ describe Document do
       document.save
       access_time = Time.new(2013, 6, 27, 4).utc
       expect(document.hours_to_expiration(access_time)).to eq(24.0)
+    end
+  end
+
+  describe "#download_sequence" do
+    it "changes the download status from false to true" do
+      document.download_sequence
+      expect(document.downloaded).to eq(true)
     end
   end
 end

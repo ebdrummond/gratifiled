@@ -11,20 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130627175216) do
+ActiveRecord::Schema.define(:version => 20130628155946) do
 
   create_table "documents", :force => true do |t|
     t.string   "name"
     t.string   "email"
     t.string   "recipient_email"
     t.text     "message"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
     t.string   "uuid"
     t.string   "document_file_name"
     t.string   "document_content_type"
     t.integer  "document_file_size"
     t.datetime "document_updated_at"
+    t.boolean  "downloaded",            :default => false
   end
 
 end
