@@ -29,6 +29,10 @@ class Document < ActiveRecord::Base
     end
   end
 
+  def self.active_documents
+    Document.where(["created_at > ?", (Time.now.utc - 3.days)])
+  end
+
 private
   def add_uuid
     self.uuid = UUID.new.generate

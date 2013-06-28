@@ -55,4 +55,18 @@ describe Document do
       expect(document.downloaded).to eq(true)
     end
   end
+
+  describe ".active_documents" do
+    it "defines the files that have been created within the last 72 hours" do
+      document.save
+      document2 = Document.create(name: "erin",
+                                  email: "erin@example.com",
+                                  recipient_email: "brock@example.com",
+                                  message: "the dog ate my homework",
+                                  document: File.new('spec/fixtures/lola_may.png'))
+      document2.created_at = (Time.now.utc - 4.days)
+      document2.save
+      expect(Document.active_documents).to eq([document])
+    end
+  end
 end
