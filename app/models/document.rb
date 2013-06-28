@@ -16,6 +16,11 @@ class Document < ActiveRecord::Base
     local_time.strftime("%B %-d at %-l:%M %P")
   end
 
+  def hours_to_expiration(access_time)
+    seconds_to_expiration = expiration.to_time - access_time
+    (seconds_to_expiration / 3600).round(1)
+  end
+
 private
   def add_uuid
     self.uuid = UUID.new.generate

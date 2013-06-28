@@ -35,4 +35,13 @@ describe Document do
       expect(document.expiration).to eq(DateTime.new(2013, 6, 28, 10))
     end
   end
+
+  describe "#hours_to_expiration" do
+    it "returns the hours to expiration, rounded one decimal place" do
+      document.created_at = DateTime.new(2013, 6, 25, 10).to_time
+      document.save
+      access_time = Time.new(2013, 6, 27, 4).utc
+      expect(document.hours_to_expiration(access_time)).to eq(24.0)
+    end
+  end
 end

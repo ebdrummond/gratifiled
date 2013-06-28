@@ -7,5 +7,6 @@ class DownloadsController < ApplicationController
                          type: @document.document_content_type,
                          disposition: 'attachment',
                          stream: 'true')
+    SendDownloadAlertsWorker.perform_async(@document.id)
   end
 end
