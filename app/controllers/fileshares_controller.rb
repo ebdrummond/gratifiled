@@ -2,7 +2,7 @@ class FilesharesController < ApplicationController
 
   def new
     @fileshare = Fileshare.new
-    2.times { @fileshare.documents.build }
+    3.times { @fileshare.documents.build }
   end
 
   def create
