@@ -30,7 +30,19 @@ class Document < ActiveRecord::Base
   end
 
   def self.active_documents
-    Document.where(["created_at > ?", (Time.now.utc - 3.days)])
+    Document.where(expired: false)
+  end
+
+  def self.set_to_expire
+    active_documents.where(["created_at < ?", (Time.now.utc - 3.days)])
+  end
+
+  def self.clear_expired_files
+    set_to_expire.to_a.each do |document|
+      document.expired = true
+      document.document = nil
+      document.save
+    end
   end
 
 private

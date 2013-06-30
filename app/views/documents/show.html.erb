@@ -1,15 +1,9 @@
-File information:
-<p>Sent by: <%= @document.name %> (<%= @document.email %>)</p>
+<% if !@document.expired %>
 
-<p>File name: <%= @document.document_file_name %></p>
+  <%= render :partial => "active_show" %>
 
-<p>Size: <%= formatted(@document.document_file_size) %></p>
+<% else %>
 
-<% if @document.message %>
-  <p>Message:<br>
-  <%= @document.message %></p>
+  <%= render :partial => "expired_show" %>
+
 <% end %>
-
-<%= link_to "Download file", document_download_path(@document) %>
-
-<p>Remember, you have until <%= @document.formatted_expiration %> to download this file.  After that time, the file will be purged from our system.</p>

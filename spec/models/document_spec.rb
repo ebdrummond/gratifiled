@@ -57,16 +57,22 @@ describe Document do
   end
 
   describe ".active_documents" do
-    it "defines the files that have been created within the last 72 hours" do
+    it "returns true or false if a given document is active" do
       document.save
-      document2 = Document.create(name: "erin",
-                                  email: "erin@example.com",
-                                  recipient_email: "brock@example.com",
-                                  message: "the dog ate my homework",
-                                  document: File.new('spec/fixtures/lola_may.png'))
-      document2.created_at = (Time.now.utc - 4.days)
-      document2.save
-      expect(Document.active_documents).to eq([document])
+      doc2 = Document.create(name: "erin",
+                             email: "erin@example.com",
+                             recipient_email: "brock@example.com",
+                             message: "the dog ate my homework",
+                             document: File.new('spec/fixtures/lola_may.png'))
+      expect(Document.active_documents.count).to eq(2)
+    end
+  end
+
+  describe ".set_to_expire" do
+    it "returns the active documents that are ready to be expired" do
+      document.created_at = Time.now.utc - 4.days
+      document.save
+      expect(Document.set_to_expire).to include(document)
     end
   end
 end
