@@ -208,7 +208,7 @@ DEPENDENCIES
   dotenv-rails
   jquery-rails
   launchy
-  paperclip
+  paperclip (~> 3.0)
   pg
   pry
   rails (= 3.2.13)
