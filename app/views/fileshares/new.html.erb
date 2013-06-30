@@ -1,0 +1,38 @@
+<div class="page">
+  <%= form_for @fileshare do |f| %>
+    <% @fileshare.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+
+    <p>
+      <%= f.label :your_name %><br>
+      <%= f.text_field :sender_name %>
+    </p>
+
+    <p>
+      <%= f.label :your_email %><br>
+      <%= f.text_field :sender_email %>
+    </p>
+
+    <p>
+      <%= f.label :recipient_email %><br>
+      <%= f.text_field :recipient_email %>
+    </p>
+
+    <p>
+      <%= f.label :personal_message %><br>
+      <%= f.text_area :message, :cols => "40", :rows => "5" %>
+    </p>
+
+    <%= f.fields_for :documents do |document| %>
+      <p>
+        <%= document.label :document, "Attach file" %><br />
+        <%= document.file_field :document %>
+      </p>
+    <% end %>
+
+    <p><br>
+      <%= f.submit "Send file", :class => "button" %>
+    </p>
+  <% end %>
+</div>

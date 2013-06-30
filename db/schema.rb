@@ -11,22 +11,30 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130629230205) do
+ActiveRecord::Schema.define(:version => 20130630030421) do
 
   create_table "documents", :force => true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "recipient_email"
-    t.text     "message"
-    t.datetime "created_at",                               :null => false
-    t.datetime "updated_at",                               :null => false
-    t.string   "uuid"
+    t.integer  "fileshare_id"
     t.string   "document_file_name"
     t.string   "document_content_type"
     t.integer  "document_file_size"
     t.datetime "document_updated_at"
-    t.boolean  "downloaded",            :default => false
-    t.boolean  "expired",               :default => false
+    t.boolean  "downloaded"
+    t.boolean  "expired"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
+
+  add_index "documents", ["fileshare_id"], :name => "index_documents_on_fileshare_id"
+
+  create_table "fileshares", :force => true do |t|
+    t.string   "sender_name"
+    t.string   "sender_email"
+    t.string   "recipient_email"
+    t.text     "message"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "uuid"
   end
 
 end

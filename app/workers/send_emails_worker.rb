@@ -1,9 +1,9 @@
 class SendEmailsWorker
   include Sidekiq::Worker
 
-  def perform(document_id)
-    document = Document.find(document_id)
+  def perform(fileshare_id)
+    fileshare = Fileshare.find(fileshare_id)
 
-    Emailer.send_document_email(document).deliver
+    Emailer.send_fileshare_email(fileshare).deliver
   end
 end

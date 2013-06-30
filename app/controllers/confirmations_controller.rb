@@ -1,6 +1,6 @@
 class ConfirmationsController < ApplicationController
 
   def show
-    @document = Document.find(params[:document_id])
+    @fileshare = Fileshare.find(params[:fileshare_id])
   end
 end

@@ -6,29 +6,31 @@
 
   <p>
   <strong>Your info:</strong><br>
-  <%= @document.name %><br>
-  <%= @document.email %><br>
+  <%= @fileshare.sender_name %><br>
+  <%= @fileshare.sender_email %><br>
   </p>
 
   <p>
   <strong>Your recipient:</strong><br>
-  <%= @document.recipient_email %><br>
+  <%= @fileshare.recipient_email %><br>
   </p>
 
   <p>
-  <% if @document.message != "" %>
+  <% if @fileshare.message != "" %>
     <strong>Personal message:</strong><br>
-    <%= @document.message %>
+    <%= @fileshare.message %>
   <% end %>
   </p>
 
   <p>
-  <strong>File info:</strong><br>
-  <%= @document.document_file_name %><br>
-  <%= formatted(@document.document_file_size) %>
+  <strong>File info (<%= pluralize(@fileshare.documents.count, "file") %> sent):</strong><br>
+    <% @fileshare.documents.each do |doc| %>
+      <%= doc.document_file_name %><br>
+      <%= formatted(doc.document_file_size) %><br>
+    <% end %>
   </p>
 
-  <p class="medium-text">Your recipient has been emailed a link to download your file and has until <%= @document.formatted_expiration %> to view and download the file.</p><br>
+  <p class="medium-text">Your recipient has been emailed a link to download your files and has until <%= @fileshare.formatted_expiration %> to view and download the file.</p><br>
 
-  <%= button_to "Send another file", new_document_path, :class => "button" %>
+  <%= button_to "Send another file", new_fileshare_path, method: :get, :class => "button" %>
 </div>
