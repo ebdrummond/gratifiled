@@ -6,8 +6,8 @@ class CreateDocumentsTable < ActiveRecord::Migration
       t.string     :document_content_type
       t.integer    :document_file_size
       t.datetime   :document_updated_at
-      t.boolean    :downloaded
-      t.boolean    :expired
+      t.boolean    :downloaded, default: false
+      t.boolean    :expired, default: false
 
       t.timestamps
     end

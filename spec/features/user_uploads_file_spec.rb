@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe "a user sends an email to recipient" do
-  def create_valid_document
-    visit new_document_path
-    fill_in("document[name]", :with => "erin")
-    fill_in("document[email]", :with => "erin@example.com")
-    fill_in("document[recipient_email]", :with => "brock@example.com")
-    fill_in("document[message]", :with => "the dog ate my homework")
-    attach_file("document[document]", "spec/fixtures/lola_may.png")
+describe "a user sends a file to recipient" do
+  def create_valid_fileshare
+    visit new_fileshare_path
+    fill_in("fileshare[sender_name]", :with => "erin")
+    fill_in("fileshare[sender_email]", :with => "erin@example.com")
+    fill_in("fileshare[recipient_email]", :with => "brock@example.com")
+    fill_in("fileshare[message]", :with => "the dog ate my homework")
+    attach_file("fileshare[documents_attributes][0][document]", "spec/fixtures/lola_may.png")
   end
 
   it "has a button to add a new file" do
@@ -18,35 +18,35 @@ describe "a user sends an email to recipient" do
   it "takes you to the new file path upon clicking 'Yes!' button" do
     visit root_path
     click_button("Yes!")
-    expect(current_path).to eq(new_document_path)
+    expect(current_path).to eq(new_fileshare_path)
   end
 
   it "has a form to upload a new file" do
-    visit new_document_path
-    expect(page).to have_field("document[name]")
-    expect(page).to have_field("document[email]")
-    expect(page).to have_field("document[recipient_email]")
-    expect(page).to have_field("document[message]")
-    expect(page).to have_button("Send document")
+    visit new_fileshare_path
+    expect(page).to have_field("fileshare[sender_name]")
+    expect(page).to have_field("fileshare[sender_email]")
+    expect(page).to have_field("fileshare[recipient_email]")
+    expect(page).to have_field("fileshare[message]")
+    expect(page).to have_button("Send file")
   end
 
-  context "with valid input to create the document" do
+  context "with valid input to create the file" do
     it "creates a new document instance" do
-      create_valid_document
-      expect{ click_button("Send document") }.to change(Document, :count).by(1)
+      create_valid_fileshare
+      expect{ click_button("Send file") }.to change(Document, :count).by(1)
     end
 
-    it "redirects to a confirmation page on document creation" do
-      create_valid_document
-      click_button("Send document")
-      expect(current_path).to eq(document_confirmation_path(Document.last.id))
+    it "redirects to a confirmation page on file creation" do
+      create_valid_fileshare
+      click_button("Send file")
+      expect(current_path).to eq(fileshare_confirmation_path(Fileshare.last.id))
     end
 
-    it "includes confirmation details of the created document" do
-      create_valid_document
-      click_button("Send document")
-      document = Document.last
-      expiration = (document.created_at + 3.days).to_time.localtime
+    it "includes confirmation details of the created file" do
+      create_valid_fileshare
+      click_button("Send file")
+      fileshare = Fileshare.last
+      expiration = (fileshare.created_at + 3.days).to_time.localtime
       formatted_expiration = expiration.strftime("%B %-d at %-l:%M %P")
       expect(page).to have_content("erin")
       expect(page).to have_content("erin@example.com")
@@ -56,16 +56,17 @@ describe "a user sends an email to recipient" do
     end
   end
 
-  context "with invalid input to create the document" do
-    it "does not create the new document" do
-      visit new_document_path
-      fill_in("document[name]", :with => "")
-      fill_in("document[email]", :with => "erin@example.com")
-      fill_in("document[recipient_email]", :with => "brock@example.com")
-      fill_in("document[message]", :with => "the dog ate my homework")
-      click_button("Send document")
-      expect(current_path).to eq(documents_path)
-      expect(page).to have_content("Name can't be blank")
+  context "with invalid input to create the file" do
+    it "does not create the new file" do
+      visit new_fileshare_path
+      fill_in("fileshare[sender_name]", :with => "")
+      fill_in("fileshare[sender_email]", :with => "erin@example.com")
+      fill_in("fileshare[recipient_email]", :with => "brock@example.com")
+      fill_in("fileshare[message]", :with => "the dog ate my homework")
+      click_button("Send file")
+      expect(current_path).to eq(fileshares_path)
+      expect(page).to have_content("Sender name can't be blank")
+      expect(page).to have_content("Documents can't be blank")
     end
   end
 end

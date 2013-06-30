@@ -1,18 +1,20 @@
 <div class="page">
   <p class="large-text">File information:</p>
 
-  <p><strong>Sent by:</strong> <%= @fileshare.name %> (<%= @fileshare.email %>)</p>
-
-  <p><strong>File name:</strong> <%= @fileshare.fileshare_file_name %></p>
-
-  <p><strong>Size:</strong> <%= formatted(@fileshare.fileshare_file_size) %></p>
+  <p><strong>Sent by:</strong> <%= @fileshare.sender_name %> (<%= @fileshare.sender_email %>)</p>
 
   <% if @fileshare.message %>
     <p><strong>Message:</strong><br>
     <%= @fileshare.message %></p>
   <% end %>
 
-  <%= link_to "Download file", fileshare_download_path(@fileshare), :class => "large-text" %>
+  <% @fileshare.active_documents.each do |doc| %>
+    <p><strong>File name:</strong> <%= doc.document_file_name %></p>
+
+    <p><strong>Size:</strong> <%= formatted(doc.document_file_size) %></p>
+
+    <%= link_to "Download file", {:controller => 'downloads', :action => 'show', :fileshare_id => @fileshare.id, :document_id => doc.id}, :class => "large-text" %>
+  <% end %>
 
   <p class="medium-text">Remember, you have until <%= @fileshare.formatted_expiration %> to download this file.  After that time, the file will be purged from our system.</p>
 </div>

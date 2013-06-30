@@ -1,15 +1,15 @@
 <p>Hiya <%= @fileshare.recipient_email %>!</p>
 
-<p><%= @fileshare.name %> has shared a file with you through Gratifiled.</p>
+<p><%= @fileshare.sender_name %> (<%= @fileshare.sender_email %>) has shared a file with you through Gratifiled.</p>
 
 <p>
 <% if @fileshare.message != "" %>
-  Personal message from <%= @fileshare.name %>:
+  Personal message from <%= @fileshare.sender_name %>:
   <%= @fileshare.message %>
 <% end %>
 </p>
 
-<p>To visit the page to download your file, <a href="http://localhost:3000/documents/<%= @fileshare.uuid%>"> click here</a>.  Please note that this file will only be available on Gratifiled until <%= @fileshare.formatted_expiration %>.</p>
+<p>To visit the page to download your file, <a href="http://localhost:3000/fileshares/<%= @fileshare.uuid%>"> click here</a>.  Please note that this file will only be available on Gratifiled until <%= @fileshare.formatted_expiration %>.</p>
 
 <p>Happy sharing!<br>
 The Gratifiled Team</p>

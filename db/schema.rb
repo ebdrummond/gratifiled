@@ -19,10 +19,10 @@ ActiveRecord::Schema.define(:version => 20130630030421) do
     t.string   "document_content_type"
     t.integer  "document_file_size"
     t.datetime "document_updated_at"
-    t.boolean  "downloaded"
-    t.boolean  "expired"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.boolean  "downloaded",            :default => false
+    t.boolean  "expired",               :default => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
   end
 
   add_index "documents", ["fileshare_id"], :name => "index_documents_on_fileshare_id"

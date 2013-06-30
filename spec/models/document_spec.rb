@@ -1,52 +1,20 @@
 require 'spec_helper'
 
 describe Document do
-  let(:document) {Document.new(name: "erin",
-                               email: "erin@example.com",
-                               recipient_email: "brock@example.com",
-                               message: "the dog ate my homework",
-                               document: File.new('spec/fixtures/lola_may.png'))}
+  let(:fileshare) {stub(id: 1)}
+  let(:document) {Document.new(document: File.new('spec/fixtures/lola_may.png'),
+                               fileshare_id: fileshare.id)}
 
-  it "requires a name" do
-    expect{ document.name = "" }.to change { document.valid? }.to be_false
-  end
-
-  it "requires an email" do
-    expect{ document.email = "" }.to change { document.valid? }.to be_false
-  end
-
-  it "requires a recipient email" do
-    expect{ document.recipient_email = "" }.to change { document.valid? }.to be_false
-  end
-
-  it "requires a uuid hash" do
-    document.save
-    expect{ document.uuid = nil }.to change { document.valid? }.to be_false
-  end
-
-  it "does not require a message" do
-    document.message = ""
-    expect(document).to be_valid
+  it "requires a document" do
+    expect{ document.document = nil }.to change { document.valid? }.to be_false
   end
 
   it "has a default downloaded state of false" do
     expect(document.downloaded).to eq(false)
   end
 
-  describe "#expiration" do
-    it "has an expiration of 72 hours after the document was created" do
-      document.created_at = DateTime.new(2013, 6, 25, 10)
-      expect(document.expiration).to eq(DateTime.new(2013, 6, 28, 10))
-    end
-  end
-
-  describe "#hours_to_expiration" do
-    it "returns the hours to expiration, rounded one decimal place" do
-      document.created_at = DateTime.new(2013, 6, 25, 10).to_time
-      document.save
-      access_time = Time.new(2013, 6, 27, 4).utc
-      expect(document.hours_to_expiration(access_time)).to eq(24.0)
-    end
+  it "has a default expired state of false" do
+    expect(document.expired).to eq(false)
   end
 
   describe "#download_sequence" do
@@ -57,14 +25,12 @@ describe Document do
   end
 
   describe ".active_documents" do
-    it "returns true or false if a given document is active" do
+    it "returns all active documents" do
+      document.expired = true
       document.save
-      doc2 = Document.create(name: "erin",
-                             email: "erin@example.com",
-                             recipient_email: "brock@example.com",
-                             message: "the dog ate my homework",
-                             document: File.new('spec/fixtures/lola_may.png'))
-      expect(Document.active_documents.count).to eq(2)
+      Document.create(document: File.new('spec/fixtures/lola_may.png'),
+                      fileshare_id: fileshare.id)
+      expect(Document.active_documents.count).to eq(1)
     end
   end
 
