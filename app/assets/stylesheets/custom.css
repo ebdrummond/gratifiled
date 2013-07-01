@@ -100,3 +100,11 @@ html, body {
 .medium-text{
   font-size: 19px;
 }
+
+.add-document {
+  display: none;
+}
+
+.add-document:first-child {
+  display: block;
+}

@@ -24,12 +24,16 @@
       <%= f.text_area :message, :cols => "40", :rows => "5" %>
     </p>
 
-    <%= f.fields_for :documents do |document| %>
-      <p>
-        <%= document.label :document, "Attach file" %><br />
-        <%= document.file_field :document %>
-      </p>
-    <% end %>
+    <div>
+      <%= f.fields_for :documents do |document| %>
+        <p class="add-document">
+          <%= document.label :document, "Attach file" %><br />
+          <%= document.file_field :document %>
+        </p>
+      <% end %>
+    </div>
+
+    <%= link_to "Add another file", "#", :class => "add-document-link" %>
 
     <p><br>
       <%= f.submit "Send file", :class => "button" %>
