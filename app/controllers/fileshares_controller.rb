@@ -12,7 +12,7 @@ class FilesharesController < ApplicationController
       SendEmailsWorker.perform_async(@fileshare.id)
       redirect_to fileshare_confirmation_path(@fileshare)
     else
-      render :new, message: "fileshare failed to save."
+      render :new, message: "File failed to save; please try again."
     end
   end
 

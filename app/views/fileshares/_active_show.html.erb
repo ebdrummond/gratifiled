@@ -16,5 +16,5 @@
     <%= link_to "Download file", {:controller => 'downloads', :action => 'show', :fileshare_id => @fileshare.id, :document_id => doc.id}, :class => "large-text" %>
   <% end %>
 
-  <p class="medium-text">Remember, you have until <%= @fileshare.formatted_expiration %> to download this file.  After that time, the file will be purged from our system.</p>
+  <p class="medium-text">Remember, you have until <%= @fileshare.formatted_expiration %>, PST, to download these files.  After that time, the files will be purged from our system.</p>
 </div>
