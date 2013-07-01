@@ -30,7 +30,7 @@
     <% end %>
   </p>
 
-  <p class="medium-text">Your recipient has been emailed a link to download your files and has until <%= @fileshare.formatted_expiration %> to view and download the file.</p><br>
+  <p class="medium-text">Your recipient has been emailed a link to download your files and has until <%= @fileshare.formatted_expiration %>, PST, to view and download the files.</p><br>
 
   <%= button_to "Send another file", new_fileshare_path, method: :get, :class => "button" %>
 </div>
